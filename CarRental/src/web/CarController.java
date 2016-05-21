@@ -8,7 +8,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.inject.Named;
-import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 import dal.CarFacade;
@@ -17,7 +16,7 @@ import entity.Car;
 
 @Named("carController")
 @SessionScoped
-@WebService
+@WebService(endpointInterface="web.SearchService")
 public class CarController implements Serializable{
 	private Car currentCar;
 	private DataModel<Car> carItems = null;
@@ -120,7 +119,6 @@ public class CarController implements Serializable{
 		searchCarsWebMethod(carSearchParameters.getManufacturer(), carSearchParameters.getModelType(), carSearchParameters.isAvailable());
 	}
 	
-	@WebMethod
 	public List<Car> searchCarsWebMethod(String manufacturer, String modelType, boolean available) {
 		carItems = new ListDataModel<Car>(carFacade.search(manufacturer, modelType, available, rentFacade.findAll()));
 		
