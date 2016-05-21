@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="pageTitle">${securityBean.admin ? 'Manage cars, clients and rents' : 'Browse your rents and search cars'}</ui:define>
+	<ui:define name="pageHeader">${securityBean.admin ? 'Manage cars, clients and rents' : 'Browse your rents and search cars'}</ui:define>
+	<ui:define name="body">
+		<h:messages />
+		<h:form rendered="#{securityBean.admin}">
+			<h:dataTable value="#{clientController.items}" var="item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Name" />
+					</f:facet>
+					<h:outputText value="#{item.name}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Password" />
+					</f:facet>
+					<h:outputText value="#{item.password}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="IdentityNumber" />
+					</f:facet>
+					<h:outputText value="#{item.identitynumber}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Admin" />
+					</f:facet>
+					<h:outputText value="#{item.admin ? 'YES' : 'NO'}" />
+				</h:column>
+				<h:column rendered="#{securityBean.admin}">
+					<f:facet name="header">
+						<h:outputText value="&nbsp;" />
+					</f:facet>
+					<h:commandLink action="#{clientController.prepareEdit}" value="Edit">
+						<f:actionListener binding="#{editPageController.setEntityString('Client')}" />
+ 					 </h:commandLink>
+					<h:outputText value=" " />
+					<h:commandLink action="#{clientController.remove}" value="Remove" />
+				</h:column>
+			</h:dataTable>
+			<br />
+			<h:commandLink action="#{clientController.prepareNew()}"
+					value="Create New Client" rendered="#{securityBean.admin}">
+				<f:actionListener binding="#{editPageController.setEntityString('Client')}" />
+ 			</h:commandLink>
+			
+		</h:form>		
+		<h:form rendered="#{!securityBean.admin}">
+			<h3>Search cars</h3>
+		    <h:commandButton id="list" value="List all cars" action="#{carController.refreshCarList()}"></h:commandButton>
+		    <h:commandButton id="search" value="Search cars" action="#{carController.searchCars()}"></h:commandButton>
+		    
+		    <h:outputLabel value="Manufacturer:" for="manufacturer" />
+				<h:inputText id="manufacturer" value="#{carController.carSearchParameters.manufacturer}" />
+				
+			 <h:outputLabel value="Model type:" for="modelType" />
+				<h:inputText id="modelType" value="#{carController.carSearchParameters.modelType}" />
+			
+			<h:outputLabel value="Available" for="available" />
+				<h:selectBooleanCheckbox id="available" value="#{carController.carSearchParameters.available}" />   
+		</h:form>
+		<h:form>
+			<h:dataTable value="#{carController.items}" var="item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Manufacturer" />
+					</f:facet>
+					<h:outputText value="#{item.manufacturer}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="ModelType" />
+					</f:facet>
+					<h:outputText value="#{item.modeltype}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Seats" />
+					</f:facet>
+					<h:outputText value="#{item.seats}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Is available?" />
+					</f:facet>
+					<h:outputText value="#{rentController.isCarAvailable(item.carId) ? 'YES' : 'NO'}" />
+				</h:column>
+				<h:column rendered="#{securityBean.admin}">
+					<f:facet name="header">
+						<h:outputText value="&nbsp;" />
+					</f:facet>
+					<h:commandLink action="#{carController.prepareEdit}" value="Edit">
+						<f:actionListener binding="#{editPageController.setEntityString('Car')}" />
+ 					</h:commandLink>
+					<h:outputText value=" " />
+					<h:commandLink action="#{carController.remove}" value="Remove" />
+				</h:column>
+			</h:dataTable>
+			<br />
+			<h:commandLink action="#{carController.prepareNew()}"
+					value="Create New Car" rendered="#{securityBean.admin}">
+				<f:actionListener binding="#{editPageController.setEntityString('Car')}" />
+ 			</h:commandLink>
+ 			
+		</h:form>
+		<h:form rendered="#{securityBean.admin}">
+			<h:dataTable value="#{rentController.items}" var="item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Client name:" />
+					</f:facet>
+					<h:outputText value="#{item.client.name}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Car id" />
+					</f:facet>
+					<h:outputText value="#{item.car.carId}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Manufacturer" />
+					</f:facet>
+					<h:outputText value="#{item.car.manufacturer}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="ModelType" />
+					</f:facet>
+					<h:outputText value="#{item.car.modeltype}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Rent start date" />
+					</f:facet>
+					<h:outputText value="#{item.rentStartDate}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Rent deadline date" />
+					</f:facet>
+					<h:outputText value="#{item.rentDeadlineDate}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Rent fulfilled?" />
+					</f:facet>
+					<h:outputText value="#{rentController.booleanIntToYesNo(item.rentFulfilled)}" />
+				</h:column>
+				<h:column rendered="#{securityBean.admin}">
+					<f:facet name="header">
+						<h:outputText value="&nbsp;" />
+					</f:facet>
+					<h:commandLink action="#{rentController.prepareEdit}" value="Edit">
+						<f:actionListener binding="#{editPageController.setEntityString('Rent')}" />
+ 					</h:commandLink>
+					<h:outputText value=" " />
+					<h:commandLink action="#{rentController.remove}" value="Remove" />
+				</h:column>
+			</h:dataTable>
+			<br />
+			<h:commandLink action="#{rentController.prepareNew()}"
+					value="Create New Rent" rendered="#{securityBean.admin}">
+				<f:actionListener binding="#{editPageController.setEntityString('Rent')}" />
+ 			</h:commandLink>
+		</h:form>
+	  	<br />
+	  	<h:form>
+	  		<h:commandLink action="#{rentController.showRentHistory(securityBean.userName)}" value="Show my rent history" >				 
+ 			</h:commandLink>
+			<h:dataTable value="#{rentController.actualUserRents}" var="item" rendered="#{rentController.userRentsShowable}">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Client name:" />
+					</f:facet>
+					<h:outputText value="#{item.client.name}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Car id" />
+					</f:facet>
+					<h:outputText value="#{item.car.carId}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Manufacturer" />
+					</f:facet>
+					<h:outputText value="#{item.car.manufacturer}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="ModelType" />
+					</f:facet>
+					<h:outputText value="#{item.car.modeltype}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Rent start date" />
+					</f:facet>
+					<h:outputText value="#{item.rentStartDate}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Rent deadline date" />
+					</f:facet>
+					<h:outputText value="#{item.rentDeadlineDate}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Rent fulfilled?" />
+					</f:facet>
+					<h:outputText value="#{rentController.booleanIntToYesNo(item.rentFulfilled)}" />
+				</h:column>
+			</h:dataTable>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>
+</html>

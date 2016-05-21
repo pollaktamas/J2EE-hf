@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="pageTitle">${clientController.editing ? 'Edit' : 'Add'}</ui:define>
+	<ui:define name="pageHeader">${clientController.editing ? 'Edit' : 'Add'}</ui:define>
+	<ui:define name="body">
+		<h:form rendered="#{editPageController.entityToEdit == 'Client'}">
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Name:" for="name" />
+				<h:inputText id="name" value="#{clientController.current.name}"
+					required="true" />
+
+				<h:outputLabel value="Password:" for="password" />
+				<h:inputText id="password"
+					value="#{clientController.current.password}" required="true" />
+
+				<h:outputLabel value="Identity number:" for="identitynumber" />
+				<h:inputText id="identitynumber"
+					value="#{clientController.current.identitynumber}" required="true" />
+
+				<h:outputLabel value="Admin:" for="admin" />
+				<h:selectBooleanCheckbox id="admin"
+					value="#{clientController.current.admin}" />
+
+			</h:panelGrid>
+			<br />
+			<h:commandLink action="#{clientController.save}" value="Save" />
+			<h:messages />
+		</h:form>
+		<h:form rendered="#{editPageController.entityToEdit == 'Car'}">
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Manufacturer:" for="manufacturer" />
+				<h:inputText id="manufacturer" value="#{carController.current.manufacturer}"
+					required="true" />
+
+				<h:outputLabel value="ModelType:" for="modelType" />
+				<h:inputText id="modelType" value="#{carController.current.modeltype}"
+					required="true" />
+
+				<h:outputLabel value="Seats:" for="seats" />
+				<h:inputText id="seats"
+					value="#{carController.current.seats}" required="true" />
+
+			</h:panelGrid>
+			<br />
+			<h:commandLink action="#{carController.save}" value="Save" />
+			<h:messages />
+		</h:form>
+		<h:form rendered="#{editPageController.entityToEdit == 'Rent'}">
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Client:" for="client" />
+				<h:inputText id="client" value="#{rentController.rentData.clientName}"
+					required="true" />
+					
+				<h:outputLabel value="Car (id): " for="carId" />
+				<h:inputText id="carId" value="#{rentController.rentData.carId}"
+					required="true" />
+					
+				<h:outputLabel value="Rent start date (YYYY-MM-DD): " for="startDate" />
+				<h:inputText id="startDate" value="#{rentController.rentData.startDate}"
+					required="true" />
+
+				<h:outputLabel value="Rent deadline date (YYYY-MM-DD): " for="deadlineDate" />
+				<h:inputText id="deadlineDate" value="#{rentController.rentData.deadLineDate}"
+					required="true" />
+
+				<h:outputLabel value="Rent fulfilled" for="rentFulfilled" />
+				<h:selectBooleanCheckbox id="rentFulfilled" value="#{rentController.rentData.rentFulfilled}" />
+
+			</h:panelGrid>
+			<br />
+			<h:commandLink action="#{rentController.save}" value="Save" />
+			<h:messages />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

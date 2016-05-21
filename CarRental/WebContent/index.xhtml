@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="pageTitle">Index</ui:define>
+	<ui:define name="pageHeader">Index</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<h:commandLink action="#{clientController.prepareList}"
+				value="Login" />
+			<br/>	
+		</h:form>
+		<h:form>
+			<h3>Search cars</h3>
+		    <h:commandButton id="list" value="List all cars" action="#{carController.refreshCarList()}"></h:commandButton>
+		    <h:commandButton id="search" value="Search cars" action="#{carController.searchCars()}"></h:commandButton>
+		    
+		    <h:outputLabel value="Manufacturer:" for="manufacturer" />
+				<h:inputText id="manufacturer" value="#{carController.carSearchParameters.manufacturer}" />
+				
+			 <h:outputLabel value="Model type:" for="modelType" />
+				<h:inputText id="modelType" value="#{carController.carSearchParameters.modelType}" />
+			
+			<h:outputLabel value="Available" for="available" />
+				<h:selectBooleanCheckbox id="available" value="#{carController.carSearchParameters.available}" />   
+		</h:form>
+		<h:form>
+			<h:dataTable value="#{carController.items}" var="item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Manufacturer" />
+					</f:facet>
+					<h:outputText value="#{item.manufacturer}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="ModelType" />
+					</f:facet>
+					<h:outputText value="#{item.modeltype}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Seats" />
+					</f:facet>
+					<h:outputText value="#{item.seats}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Is available?" />
+					</f:facet>
+					<h:outputText value="#{rentController.isCarAvailable(item.carId) ? 'YES' : 'NO'}" />
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
