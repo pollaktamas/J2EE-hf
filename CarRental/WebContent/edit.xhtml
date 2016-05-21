@@ -9,70 +9,113 @@
 	<ui:define name="pageTitle">${clientController.editing ? 'Edit' : 'Add'}</ui:define>
 	<ui:define name="pageHeader">${clientController.editing ? 'Edit' : 'Add'}</ui:define>
 	<ui:define name="body">
-		<h:form rendered="#{editPageController.entityToEdit == 'Client'}">
-			<h:panelGrid columns="2">
-				<h:outputLabel value="Name:" for="name" />
-				<h:inputText id="name" value="#{clientController.current.name}"
-					required="true" />
-
-				<h:outputLabel value="Password:" for="password" />
-				<h:inputText id="password"
-					value="#{clientController.current.password}" required="true" />
-
-				<h:outputLabel value="Identity number:" for="identitynumber" />
-				<h:inputText id="identitynumber"
-					value="#{clientController.current.identitynumber}" required="true" />
-
-				<h:outputLabel value="Admin:" for="admin" />
-				<h:selectBooleanCheckbox id="admin"
-					value="#{clientController.current.admin}" />
-
-			</h:panelGrid>
+		<h:form styleClass="form-horizontal" rendered="#{editPageController.entityToEdit == 'Client'}">		
+				<div class="form-group">
+					<h:outputLabel value="Name:" for="name" styleClass="control-label col-sm-2"/>
+					<div class="col-sm-4">
+						<h:inputText id="name" value="#{clientController.current.name}"
+							required="true" styleClass="form-control"/>
+					</div>
+					<div class="col-sm-7"></div>
+				</div>			
+				<div class="form-group">
+					<h:outputLabel value="Password:" for="password" styleClass="control-label col-sm-2" />
+					<div class="col-sm-4">
+						<h:inputText id="password"
+							value="#{clientController.current.password}" required="true" styleClass="form-control"/>
+					</div>
+					<div class="col-sm-7"></div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel value="Identity number:" for="identitynumber" styleClass="control-label col-sm-2" />
+					<div class="col-sm-4">
+						<h:inputText id="identitynumber"
+							value="#{clientController.current.identitynumber}" required="true" styleClass="form-control"/>
+					</div>
+					<div class="col-sm-7"></div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel value="Admin:" for="admin" styleClass="control-label col-sm-2" />
+					<div class="col-sm-1">
+						<h:selectBooleanCheckbox id="admin"
+							value="#{clientController.current.admin}"  styleClass="form-control"/>
+					</div>
+					<div class="col-sm-10"></div>
+				</div>
 			<br />
 			<h:commandLink action="#{clientController.save}" value="Save" />
 			<h:messages />
 		</h:form>
-		<h:form rendered="#{editPageController.entityToEdit == 'Car'}">
-			<h:panelGrid columns="2">
-				<h:outputLabel value="Manufacturer:" for="manufacturer" />
-				<h:inputText id="manufacturer" value="#{carController.current.manufacturer}"
-					required="true" />
-
-				<h:outputLabel value="ModelType:" for="modelType" />
-				<h:inputText id="modelType" value="#{carController.current.modeltype}"
-					required="true" />
-
-				<h:outputLabel value="Seats:" for="seats" />
-				<h:inputText id="seats"
-					value="#{carController.current.seats}" required="true" />
-
-			</h:panelGrid>
+		<h:form styleClass="form-horizontal" rendered="#{editPageController.entityToEdit == 'Car'}">
+				<div class="form-group">
+					<h:outputLabel value="Manufacturer:" for="manufacturer" styleClass="control-label col-sm-2" />
+					<div class="col-sm-4">
+						<h:inputText id="manufacturer" required="true" 
+							value="#{carController.current.manufacturer}"  styleClass="form-control"/>
+					</div>
+					<div class="col-sm-7"></div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel value="ModelType:" for="modeltype" styleClass="control-label col-sm-2" />
+					<div class="col-sm-4">
+						<h:inputText id="modeltype" required="true" 
+							value="#{carController.current.modeltype}"  styleClass="form-control"/>
+					</div>
+					<div class="col-sm-7"></div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel value="Seats:" for="seats" styleClass="control-label col-sm-2" />
+					<div class="col-sm-4">
+						<h:inputText id="seats" required="true" 
+							value="#{carController.current.seats}"  styleClass="form-control"/>
+					</div>
+					<div class="col-sm-7"></div>
+				</div>
 			<br />
 			<h:commandLink action="#{carController.save}" value="Save" />
 			<h:messages />
 		</h:form>
-		<h:form rendered="#{editPageController.entityToEdit == 'Rent'}">
-			<h:panelGrid columns="2">
-				<h:outputLabel value="Client:" for="client" />
-				<h:inputText id="client" value="#{rentController.rentData.clientName}"
-					required="true" />
-					
-				<h:outputLabel value="Car (id): " for="carId" />
-				<h:inputText id="carId" value="#{rentController.rentData.carId}"
-					required="true" />
-					
-				<h:outputLabel value="Rent start date (YYYY-MM-DD): " for="startDate" />
-				<h:inputText id="startDate" value="#{rentController.rentData.startDate}"
-					required="true" />
-
-				<h:outputLabel value="Rent deadline date (YYYY-MM-DD): " for="deadlineDate" />
-				<h:inputText id="deadlineDate" value="#{rentController.rentData.deadLineDate}"
-					required="true" />
-
-				<h:outputLabel value="Rent fulfilled" for="rentFulfilled" />
-				<h:selectBooleanCheckbox id="rentFulfilled" value="#{rentController.rentData.rentFulfilled}" />
-
-			</h:panelGrid>
+		<h:form styleClass="form-horizontal" rendered="#{editPageController.entityToEdit == 'Rent'}">
+				<div class="form-group">
+					<h:outputLabel value="Client:" for="client" styleClass="control-label col-sm-3" />
+					<div class="col-sm-4">
+						<h:inputText id="client" required="true" 
+							value="#{rentController.rentData.clientName}"  styleClass="form-control"/>
+					</div>
+					<div class="col-sm-7"></div>
+				</div>				
+				<div class="form-group">
+					<h:outputLabel value="Car (id):" for="carId" styleClass="control-label col-sm-3" />
+					<div class="col-sm-4">
+						<h:inputText id="carId" required="true" 
+							value="#{rentController.rentData.carId}"  styleClass="form-control"/>
+					</div>
+					<div class="col-sm-7"></div>
+				</div>				
+				<div class="form-group">
+					<h:outputLabel value="Rent start date (YYYY-MM-DD):" for="startDate" styleClass="control-label col-sm-3" />
+					<div class="col-sm-4">
+						<h:inputText id="startDate" required="true" 
+							value="#{rentController.rentData.startDate}"  styleClass="form-control"/>
+					</div>
+					<div class="col-sm-7"></div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel value="Rent deadline date (YYYY-MM-DD):" for="deadlineDate" styleClass="control-label col-sm-3" />
+					<div class="col-sm-4">
+						<h:inputText id="deadlineDate" required="true" 
+							value="#{rentController.rentData.deadLineDate}"  styleClass="form-control"/>
+					</div>
+					<div class="col-sm-7"></div>
+				</div>
+				<div class="form-group">
+					<h:outputLabel value="Rent fulfilled:" for="rentFulfilled" styleClass="control-label col-sm-3" />
+					<div class="col-sm-4">
+						<h:selectBooleanCheckbox id="rentFulfilled"
+							value="#{rentController.rentData.rentFulfilled}"  styleClass="form-control"/>
+					</div>
+					<div class="col-sm-7"></div>
+				</div>
 			<br />
 			<h:commandLink action="#{rentController.save}" value="Save" />
 			<h:messages />

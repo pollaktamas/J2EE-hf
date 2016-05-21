@@ -11,7 +11,7 @@
 	<ui:define name="body">
 		<h:messages />
 		<h:form rendered="#{securityBean.admin}">
-			<h:dataTable value="#{clientController.items}" var="item">
+			<h:dataTable class="table table-striped table-hover" value="#{clientController.items}" var="item">
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Name" />
@@ -69,7 +69,7 @@
 				<h:selectBooleanCheckbox id="available" value="#{carController.carSearchParameters.available}" />   
 		</h:form>
 		<h:form>
-			<h:dataTable value="#{carController.items}" var="item">
+			<h:dataTable class="table table-striped table-hover" value="#{carController.items}" var="item">
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Manufacturer" />
@@ -113,7 +113,7 @@
  			
 		</h:form>
 		<h:form rendered="#{securityBean.admin}">
-			<h:dataTable value="#{rentController.items}" var="item">
+			<h:dataTable class="table table-striped table-hover" value="#{rentController.items}" var="item">
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Client name:" />
@@ -177,7 +177,7 @@
 	  	<h:form>
 	  		<h:commandLink action="#{rentController.showRentHistory(securityBean.userName)}" value="Show my rent history" >				 
  			</h:commandLink>
-			<h:dataTable value="#{rentController.actualUserRents}" var="item" rendered="#{rentController.userRentsShowable}">
+			<h:dataTable class="table table-striped table-hover" value="#{rentController.actualUserRents}" var="item" rendered="#{rentController.userRentsShowable}">
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Client name:" />
