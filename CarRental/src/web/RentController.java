@@ -127,15 +127,21 @@ public class RentController implements Serializable{
 		return FacesUtil.pageWithRedirect("list.xhtml");
 	}
 
-	public String save() {
+	public String save(String actualUserId) {
 		if (editing) {
 			gatherCurrentRentData();
 			rentFacade.edit(currentRent);
+			
+			// Update actual rents
+			actualUserRents = new ListDataModel<Rent>(rentFacade.findRentsOfClient(actualUserId));
 
 			FacesUtil.addInfoMessage("Rent successfully edited");
 		} else {
 			gatherCurrentRentData();
 			rentFacade.create(currentRent);
+			
+			// Update actual rents
+			actualUserRents = new ListDataModel<Rent>(rentFacade.findRentsOfClient(actualUserId));
 		
 			FacesUtil.addInfoMessage("Rent successfully created");
 		}

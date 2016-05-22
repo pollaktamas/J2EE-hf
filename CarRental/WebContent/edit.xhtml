@@ -72,7 +72,7 @@
 					<div class="col-sm-7"></div>
 				</div>
 			<br />
-			<h:commandLink action="#{carController.save}" value="Save" />
+			<h:commandLink action="#{carController.save()}" value="Save" />
 			<h:messages />
 		</h:form>
 		<h:form styleClass="form-horizontal" rendered="#{editPageController.entityToEdit == 'Rent'}">
@@ -80,7 +80,8 @@
 					<h:outputLabel value="Client:" for="client" styleClass="control-label col-sm-3" />
 					<div class="col-sm-4">
 						<h:inputText id="client" required="true" 
-							value="#{rentController.rentData.clientName}"  styleClass="form-control"/>
+							value="#{rentController.rentData.clientName}"  validator="#{inputValidator.validateClientNameExistence}" 
+							styleClass="form-control"/>
 					</div>
 					<div class="col-sm-7"></div>
 				</div>				
@@ -88,7 +89,8 @@
 					<h:outputLabel value="Car (id):" for="carId" styleClass="control-label col-sm-3" />
 					<div class="col-sm-4">
 						<h:inputText id="carId" required="true" 
-							value="#{rentController.rentData.carId}"  styleClass="form-control"/>
+							value="#{rentController.rentData.carId}"  validator="#{inputValidator.validateCarExistence}" 
+							styleClass="form-control"/>
 					</div>
 					<div class="col-sm-7"></div>
 				</div>				
@@ -117,7 +119,7 @@
 					<div class="col-sm-7"></div>
 				</div>
 			<br />
-			<h:commandLink action="#{rentController.save}" value="Save" />
+			<h:commandLink action="#{rentController.save(securityBean.userName)}" value="Save" />
 			<h:messages />
 		</h:form>
 	</ui:define>
